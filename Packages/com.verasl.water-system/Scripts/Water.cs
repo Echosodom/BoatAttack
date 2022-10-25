@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Globalization;
-using Unity.Collections.LowLevel.Unsafe;
-using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Experimental.Rendering;
