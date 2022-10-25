@@ -134,11 +134,12 @@ namespace WaterSystem
                     cam,
                     0,
                     null,
-                    ShadowCastingMode.Off,
+                    ShadowCastingMode.TwoSided,
                     true,
                     null,
                     LightProbeUsage.Off,
                     null);
+                
             }
         }
 
@@ -239,7 +240,7 @@ namespace WaterSystem
             {
                 Shader.EnableKeyword("USE_STRUCTURED_BUFFER");
                 waveBuffer?.Dispose();
-                waveBuffer = new ComputeBuffer(10, (sizeof(float) * 6));
+                waveBuffer = new ComputeBuffer(10, (sizeof(float) * 128));
                 waveBuffer.SetData(_waves);
                 Shader.SetGlobalBuffer(WaveDataBuffer, waveBuffer);
             }
@@ -361,7 +362,7 @@ namespace WaterSystem
 
             _depthCam.enabled = true;
             _depthCam.orthographic = true;
-            _depthCam.orthographicSize = 250;//hardcoded = 1k area - TODO
+            _depthCam.orthographicSize = 2500;//hardcoded = 1k area - TODO
             _depthCam.nearClipPlane =0.01f;
             _depthCam.farClipPlane = surfaceData._waterMaxVisibility + depthExtra;
             _depthCam.allowHDR = false;

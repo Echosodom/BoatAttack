@@ -171,13 +171,13 @@ namespace UnityEngine.Rendering.Universal
                 case ResolutionMulltiplier.Full:
                     return 1f;
                 case ResolutionMulltiplier.Half:
-                    return 0.5f;
+                    return 2f;
                 case ResolutionMulltiplier.Third:
-                    return 0.33f;
+                    return 3f;
                 case ResolutionMulltiplier.Quarter:
-                    return 0.25f;
+                    return 4f;
                 default:
-                    return 0.5f; // default to half res
+                    return 1f; // default to half res
             }
         }
 
@@ -223,7 +223,7 @@ namespace UnityEngine.Rendering.Universal
                 var res = ReflectionResolution(cam, UniversalRenderPipeline.asset.renderScale);
                 bool useHdr10 = RenderingUtils.SupportsRenderTextureFormat(RenderTextureFormat.RGB111110Float);
                 RenderTextureFormat hdrFormat = useHdr10 ? RenderTextureFormat.RGB111110Float : RenderTextureFormat.DefaultHDR;
-                _reflectionTexture = RenderTexture.GetTemporary(res.x, res.y, 16,
+                _reflectionTexture = RenderTexture.GetTemporary(res.x, res.y, 32,
                     GraphicsFormatUtility.GetGraphicsFormat(hdrFormat, true));
             }
             _reflectionCamera.targetTexture =  _reflectionTexture;

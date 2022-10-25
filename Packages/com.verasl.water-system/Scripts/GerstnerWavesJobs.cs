@@ -41,7 +41,7 @@ namespace WaterSystem
                 _waveData[i] = Water.Instance._waves[i];
             }
 
-            _positions = new NativeArray<float3>(4096, Allocator.Persistent);
+            _positions = new NativeArray<float3>(65535, Allocator.Persistent);
             _wavePos = new NativeArray<float3>(4096, Allocator.Persistent);
             _waveNormal = new NativeArray<float3>(4096, Allocator.Persistent);
 
@@ -112,7 +112,7 @@ namespace WaterSystem
                 OutNormal = _waveNormal
             };
                 
-            _waterHeightHandle = waterHeight.Schedule(_positionCount, 32);
+            _waterHeightHandle = waterHeight.Schedule(_positionCount, _positions.Length*_positionCount);
                 
             JobHandle.ScheduleBatchedJobs();
 
