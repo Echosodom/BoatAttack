@@ -127,19 +127,21 @@ namespace WaterSystem
 
             foreach (var mesh in resources.defaultWaterMeshes)
             {
-                Graphics.DrawMesh(mesh,
-                    matrix,
-                    resources.defaultSeaMaterial,
-                    gameObject.layer,
-                    cam,
-                    0,
-                    null,
-                    ShadowCastingMode.TwoSided,
-                    true,
-                    null,
-                    LightProbeUsage.Off,
-                    null);
-                
+                for (int i = 0; i < 5 * (quantizeValue * forwards); i++)
+                {
+                    Graphics.DrawMesh(mesh,
+                        matrix,
+                        resources.defaultSeaMaterial,
+                        gameObject.layer,
+                        cam,
+                        0,
+                        null,
+                        ShadowCastingMode.TwoSided,
+                        true,
+                        null,
+                        LightProbeUsage.Off,
+                        null);
+                }
             }
         }
 
