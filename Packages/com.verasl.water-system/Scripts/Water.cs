@@ -117,7 +117,7 @@ namespace WaterSystem
                 GameObject o = new GameObject(t.ToString(CultureInfo.InvariantCulture));
                 var comp =  o.AddComponent<MeshFilter>();
                 comp.sharedMesh = mesh.sharedMesh;
-                //o.hideFlags = HideFlags.HideInHierarchy;
+                o.hideFlags = HideFlags.HideInHierarchy | HideFlags.HideAndDontSave;
 #if UNITY_EDITOR
                 DestroyImmediate(o);
 #endif
@@ -138,7 +138,7 @@ namespace WaterSystem
                 GameObject o = new GameObject(t.ToString(CultureInfo.InvariantCulture));
                 var comp =  o.AddComponent<MeshRenderer>();
                 comp.material = new Material(Shader.Find("BoatAttack/Water"));
-                //o.hideFlags = HideFlags.HideInHierarchy;
+                o.hideFlags = HideFlags.HideInHierarchy | HideFlags.HideAndDontSave;
 #if UNITY_EDITOR
                 DestroyImmediate(o);
 #endif
