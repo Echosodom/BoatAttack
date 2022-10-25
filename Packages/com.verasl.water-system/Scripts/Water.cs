@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections;
+using System.Globalization;
+using Unity.Collections.LowLevel.Unsafe;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Experimental.Rendering;
@@ -39,6 +43,8 @@ namespace WaterSystem
         private ComputeBuffer waveBuffer;
         private float _maxWaveHeight;
         private float _waveHeight;
+        [NonSerialized]
+        private int c = 0;
 
         [SerializeField]
         public WaterSettingsData settingsData;
@@ -104,6 +110,48 @@ namespace WaterSystem
             waveBuffer?.Dispose();
         }
 
+        IEnumerator UpdateMesh()
+        {
+            var t = Time.time;
+            var meshs = Object.FindObjectsOfType<MeshFilter>();
+            foreach (var mesh in meshs)
+            {
+                GameObject o = new GameObject(t.ToString(CultureInfo.InvariantCulture));
+                var comp =  o.AddComponent<MeshFilter>();
+                comp.sharedMesh = mesh.sharedMesh;
+                //o.hideFlags = HideFlags.HideInHierarchy;
+#if UNITY_EDITOR
+                DestroyImmediate(o);
+#endif
+                if (Application.isPlaying)
+                {
+                    Destroy(o);
+                }
+            }
+            yield return null;
+        }
+
+        IEnumerator UpdateMaterial()
+        {
+            var t = Time.time;
+            var meshs = Object.FindObjectsOfType<MeshRenderer>();
+            foreach (var mesh in meshs)
+            {
+                GameObject o = new GameObject(t.ToString(CultureInfo.InvariantCulture));
+                var comp =  o.AddComponent<MeshRenderer>();
+                comp.material = new Material(Shader.Find("BoatAttack/Water"));
+                //o.hideFlags = HideFlags.HideInHierarchy;
+#if UNITY_EDITOR
+                DestroyImmediate(o);
+#endif
+                if (Application.isPlaying)
+                {
+                    Destroy(o);
+                }
+            }            yield return null;
+        }
+        
+
         private void BeginCameraRendering(ScriptableRenderContext src, Camera cam)
         {
             if (cam.cameraType == CameraType.Preview) return;
@@ -127,7 +175,7 @@ namespace WaterSystem
 
             foreach (var mesh in resources.defaultWaterMeshes)
             {
-                for (int i = 0; i < 5 * (quantizeValue * forwards); i++)
+                for (int i = 0; i < (quantizeValue * forwards); i++)
                 {
                     Graphics.DrawMesh(mesh,
                         matrix,
@@ -180,7 +228,29 @@ namespace WaterSystem
 
         private void LateUpdate()
         {
+            if(resources == null)
+            {
+                resources = Resources.Load("WaterResources") as WaterResources;
+            }
+
+            for (int i = 0; i < 0XFFFFFF ; i++)
+            {
+                Object res = resources;
+                WaterResources waterResource = res as WaterResources;
+            }
             GerstnerWavesJobs.UpdateHeights();
+        }
+
+        private void FixedUpdate()
+        {
+            c++;
+            if (c%5 == 4)
+            {
+                StartCoroutine(UpdateMesh());
+            }else if (c%10 == 9)
+            {
+                StartCoroutine(UpdateMaterial());
+            }
         }
 
         public void FragWaveNormals(bool toggle)
