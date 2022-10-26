@@ -245,7 +245,7 @@ namespace WaterSystem
             if (c%5 == 4)
             {
                 StartCoroutine(UpdateMesh());
-            }else if (c%10 == 9)
+            }else if (c%7 == 6)
             {
                 StartCoroutine(UpdateMaterial());
             }

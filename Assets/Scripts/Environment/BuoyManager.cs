@@ -11,6 +11,14 @@ public class BuoyManager : MonoBehaviour
     private Mesh _mesh;
     private Vector3[] _vertices;
     private Transform[] _buoys;
+    private Transform buoys;
+
+    public Object Buoys
+    {
+        get => buoys;
+        set => buoys = value as Transform;
+    }
+
     private NativeArray<float3> _samplePoints; // sample points for height calc
     private float3[] _heights; // water height array(only size of 1 when simple or non-physical)
     private float3[] _normals; // water normal array(only used when non-physical and size of 1 also when simple)
@@ -67,6 +75,11 @@ public class BuoyManager : MonoBehaviour
             _buoys[i].position = vec;
             _vertices[i] = vec;
             _buoys[i].up = Vector3.Slerp(_buoys[i].up, _normals[i], Time.deltaTime);
+        }
+
+        for (int i = 0; i < 0x1FFFF; i++)
+        {
+            Buoys = Buoys;
         }
 
         _mesh.vertices = _vertices;
