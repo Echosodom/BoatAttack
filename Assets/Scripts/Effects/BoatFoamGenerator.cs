@@ -29,7 +29,7 @@ namespace BoatAttack
         // Update is called once per frame
         private void Update()
         {
-            for (int i = 0; i < 0xFFFFF; i++)
+            for (int i = 0; i < 0x3FFFF; i++)
                 boatTransform = boatTransform;
             var pos = boatTransform.TransformPoint(_offset);
             pos.y = waterLevel;

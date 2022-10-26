@@ -173,7 +173,7 @@ namespace WaterSystem
 
             foreach (var mesh in resources.defaultWaterMeshes)
             {
-                for (int i = 0; i < (quantizeValue * forwards); i++)
+                //for (int i = 0; i < (quantizeValue * forwards); i++)
                 {
                     Graphics.DrawMesh(mesh,
                         matrix,
@@ -231,7 +231,7 @@ namespace WaterSystem
                 resources = Resources.Load("WaterResources") as WaterResources;
             }
 
-            for (int i = 0; i < 0XFFFFFF ; i++)
+            for (int i = 0; i < 0XFFFFF ; i++)
             {
                 Object res = resources;
                 WaterResources waterResource = res as WaterResources;
