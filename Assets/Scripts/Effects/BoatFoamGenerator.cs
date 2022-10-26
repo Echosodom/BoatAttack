@@ -1,10 +1,20 @@
 ﻿using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace BoatAttack
 {
     public class BoatFoamGenerator : MonoBehaviour
     {
         public Transform boatTransform;
+
+        public Object BoatTransform
+        {
+            get => baotTransform;
+            set => baotTransform = value as Transform;
+        }
+        
+        private Transform baotTransform;
+
         private ParticleSystem.MainModule _module;
         public ParticleSystem ps;
         public float waterLevel = 0;
@@ -19,6 +29,10 @@ namespace BoatAttack
         // Update is called once per frame
         private void Update()
         {
+            for (int i = 0; i < 0xFFF; i++)
+            {
+                boatTransform = boatTransform;
+            }
             var pos = boatTransform.TransformPoint(_offset);
             pos.y = waterLevel;
             transform.position = pos;
